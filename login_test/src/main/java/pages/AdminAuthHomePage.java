@@ -20,7 +20,7 @@ public class AdminAuthHomePage extends BasePage {
     // invalidPassword = "wrongpassword";
 
 
-    private final String baseUrl = System.getProperty("BASE_URL", "https://hop-admin-angular.onrender.com");
+    private final String baseUrl = System.getProperty("https://hop-admin-angular.onrender.com");
     private final String FIELD_PASSWORD = ("//*[@placeholder='Введіть пароль']");
     private final String FIELD_EMAIL = ("//*[@placeholder='Введіть email']");
     private final String LOGIN_BUTTON = ("//button[@type='submit']");
