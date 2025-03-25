@@ -14,6 +14,13 @@ public class AdminAuthHomePage extends BasePage {
         super(driver);
     }
 
+
+    private final String baseUrl = System.getProperty("BASE_URL", "https://hop-admin-angular.onrender.com");
+    private final String VALID_EMAIL = ("//*[@placeholder='Введіть email']");
+    private final String VALID_PASSWORD = ("//*[@placeholder='Введіть пароль']");
+    private final String INVALID_EMAIL = ("//*[@placeholder='Введіть email']");
+    private final String INVALID_PASSWORD = ("//*[@placeholder='Введіть пароль']");
+
     // VALID_EMAIL = "exampleAdmin@gmail.com";
     // VALID_PASSWORD = "example1234admin";
     // invalidEmail = "invalid@example.com";
@@ -23,9 +30,11 @@ public class AdminAuthHomePage extends BasePage {
     private final String baseUrl = System.getProperty("https://hop-admin-angular.onrender.com");
     private final String FIELD_PASSWORD = ("//*[@placeholder='Введіть пароль']");
     private final String FIELD_EMAIL = ("//*[@placeholder='Введіть email']");
+
     private final String LOGIN_BUTTON = ("//button[@type='submit']");
     private final String ERROR_MESSAGE = ("//div[@class='login-error']");
     private final String LOGOUT_BUTTON = ("//button//span[contains(text(), 'Log out')]");
+    private final String DASHBOARD_HEADING = ("//h1[contains(text(), 'Dashboard')]");
 
     public void openAdminHomePage() {
         driver.get(baseUrl);
@@ -68,6 +77,7 @@ public class AdminAuthHomePage extends BasePage {
         }
     }
 
+
     public void clickLogoutButton() {
         waitElementToBeVisible(LOGOUT_BUTTON).click();
     }
@@ -81,9 +91,10 @@ public class AdminAuthHomePage extends BasePage {
         }
     }
 
+
     public boolean isDashboardDisplayed() {
         try {
-            return waitElementToBeVisible("//h1[contains(text(), 'Dashboard')]").isDisplayed();
+            return waitElementToBeVisible(DASHBOARD_HEADING).isDisplayed();
         } catch (Exception e) {
             return false;
         }
@@ -94,6 +105,7 @@ public class AdminAuthHomePage extends BasePage {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         return (String) js.executeScript("return window.localStorage.getItem('token');");
     }
+
 
     public void clearToken() {
         ((JavascriptExecutor) driver).executeScript("window.localStorage.removeItem('token');");
