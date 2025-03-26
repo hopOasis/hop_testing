@@ -14,32 +14,24 @@ public class AdminAuthHomePage extends BasePage {
         super(driver);
     }
 
-
-    private final String baseUrl = System.getProperty("BASE_URL", "https://hop-admin-angular.onrender.com");
-    private final String VALID_EMAIL = ("//*[@placeholder='Введіть email']");
-    private final String VALID_PASSWORD = ("//*[@placeholder='Введіть пароль']");
-    private final String INVALID_EMAIL = ("//*[@placeholder='Введіть email']");
-    private final String INVALID_PASSWORD = ("//*[@placeholder='Введіть пароль']");
-
     // VALID_EMAIL = "exampleAdmin@gmail.com";
     // VALID_PASSWORD = "example1234admin";
     // invalidEmail = "invalid@example.com";
     // invalidPassword = "wrongpassword";
 
 
-    private final String baseUrl = System.getProperty("https://hop-admin-angular.onrender.com");
+    private final String BASE_URL = System.getProperty("BASE_URL", "https://hop-admin-angular.onrender.com");
     private final String FIELD_PASSWORD = ("//*[@placeholder='Введіть пароль']");
     private final String FIELD_EMAIL = ("//*[@placeholder='Введіть email']");
-
     private final String LOGIN_BUTTON = ("//button[@type='submit']");
     private final String ERROR_MESSAGE = ("//div[@class='login-error']");
     private final String LOGOUT_BUTTON = ("//button//span[contains(text(), 'Log out')]");
     private final String DASHBOARD_HEADING = ("//h1[contains(text(), 'Dashboard')]");
 
     public void openAdminHomePage() {
-        driver.get(baseUrl);
+        driver.get(BASE_URL);
         new WebDriverWait(driver, Duration.ofSeconds(20)).until(
-                webDriver -> Objects.equals(((JavascriptExecutor) webDriver).executeScript("return document.readyState"), "complete")
+                webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete")
         );
     }
 
