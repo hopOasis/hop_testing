@@ -34,27 +34,17 @@ jobs:
           key: maven-${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             maven-${{ runner.os }}-
-
-      - name: Install Chrome and ChromeDriver
+      - name: Install Chrome
         run: |
-             wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-             sudo dpkg -i google-chrome-stable_current_amd64.deb
-             sudo apt-get update
-             sudo apt-get install -f
-             CHROME_VERSION=$(google-chrome --version | awk '{print $3}')
-             CHROMEDRIVER_VERSION=$(echo $CHROME_VERSION | sed 's/\.[0-9]*$//')
-             wget -N https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip
-             unzip chromedriver_linux64.zip
-             sudo mv chromedriver /usr/local/bin/
-             sudo chown root:root /usr/local/bin/chromedriver
-             sudo chmod +x /usr/local/bin/chromedriver
-
+          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
       - name: Check directory structure
         run: |
           pwd
           ls -la
           ls -la login_test || echo "login_test directory not found"
-
       - name: Build and test with Maven
         working-directory: ./login_test
         run: |
